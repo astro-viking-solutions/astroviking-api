@@ -2,7 +2,7 @@ package com.astroviking.api.services;
 
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
 import com.amazonaws.services.simpleemail.model.*;
-import com.astroviking.api.dto.ConnectRequest;
+import com.astroviking.api.models.ConnectRequest;
 import org.springframework.stereotype.Service;
 
 @Service

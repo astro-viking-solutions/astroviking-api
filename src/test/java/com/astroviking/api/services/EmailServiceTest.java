@@ -1,7 +1,7 @@
 package com.astroviking.api.services;
 
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
-import com.astroviking.api.dto.ConnectRequest;
+import com.astroviking.api.models.ConnectRequest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

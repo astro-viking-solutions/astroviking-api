@@ -1,6 +1,6 @@
 package com.astroviking.api.controllers;
 
-import com.astroviking.api.dto.ConnectRequest;
+import com.astroviking.api.models.ConnectRequest;
 import com.astroviking.api.services.EmailService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -48,13 +48,13 @@ class ConnectControllerTest {
                 .content(asJsonString(connectRequest))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isAccepted());
+        .andExpect(status().isCreated());
 
     verify(emailService, times(1)).sendEmail(connectRequest);
   }
 
   @Test
-  void validation() throws Exception {
+  void connectValidation() throws Exception {
     ConnectRequest connectRequest = new ConnectRequest();
     connectRequest.setCompanyName("A company");
     connectRequest.setEmail("test@test.com");
