@@ -1,6 +1,6 @@
 package com.astroviking.api.controllers;
 
-import com.astroviking.api.dto.EmailDTO;
+import com.astroviking.api.dto.ConnectRequest;
 import com.astroviking.api.services.EmailService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,23 +34,43 @@ class ConnectControllerTest {
 
   @Test
   void connect() throws Exception {
-    EmailDTO emailDTO = new EmailDTO();
-    emailDTO.setCompanyName("A company");
-    emailDTO.setEmail("test@test.com");
-    emailDTO.setFirstName("First");
-    emailDTO.setLastName("Last");
-    emailDTO.setMessage("Some message");
-    emailDTO.setPhoneNumber("867-5309");
+    ConnectRequest connectRequest = new ConnectRequest();
+    connectRequest.setCompanyName("A company");
+    connectRequest.setEmail("test@test.com");
+    connectRequest.setFirstName("First");
+    connectRequest.setLastName("Last");
+    connectRequest.setMessage("Some message");
+    connectRequest.setPhoneNumber("867-5309");
 
     mockMvc
         .perform(
             post(ConnectController.BASE_URL)
-                .content(asJsonString(emailDTO))
+                .content(asJsonString(connectRequest))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isAccepted());
 
-    verify(emailService, times(1)).sendEmail(emailDTO);
+    verify(emailService, times(1)).sendEmail(connectRequest);
+  }
+
+  @Test
+  void validation() throws Exception {
+    ConnectRequest connectRequest = new ConnectRequest();
+    connectRequest.setCompanyName("A company");
+    connectRequest.setEmail("test@test.com");
+    connectRequest.setFirstName("First");
+    connectRequest.setLastName("Last");
+    connectRequest.setPhoneNumber("867-5309");
+
+    mockMvc
+        .perform(
+            post(ConnectController.BASE_URL)
+                .content(asJsonString(connectRequest))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isBadRequest());
+
+    verify(emailService, times(0)).sendEmail(connectRequest);
   }
 
   public static String asJsonString(final Object obj) {

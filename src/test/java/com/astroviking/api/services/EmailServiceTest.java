@@ -1,7 +1,7 @@
 package com.astroviking.api.services;
 
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
-import com.astroviking.api.dto.EmailDTO;
+import com.astroviking.api.dto.ConnectRequest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -20,16 +20,16 @@ class EmailServiceTest {
   @InjectMocks EmailService emailService;
 
   @Test
-  public void connect() {
-    EmailDTO emailDTO = new EmailDTO();
-    emailDTO.setCompanyName("A company");
-    emailDTO.setEmail("test@test.com");
-    emailDTO.setFirstName("First");
-    emailDTO.setLastName("Last");
-    emailDTO.setMessage("Some message");
-    emailDTO.setPhoneNumber("867-5309");
+  public void testSuccess() {
+    ConnectRequest connectRequest = new ConnectRequest();
+    connectRequest.setCompanyName("A company");
+    connectRequest.setEmail("test@test.com");
+    connectRequest.setFirstName("First");
+    connectRequest.setLastName("Last");
+    connectRequest.setMessage("Some message");
+    connectRequest.setPhoneNumber("867-5309");
 
-    emailService.sendEmail(emailDTO);
+    emailService.sendEmail(connectRequest);
 
     verify(amazonSimpleEmailService, times(1)).sendEmail(any());
   }

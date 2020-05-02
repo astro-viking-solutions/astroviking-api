@@ -1,6 +1,6 @@
 package com.astroviking.api.controllers;
 
-import com.astroviking.api.dto.EmailDTO;
+import com.astroviking.api.dto.ConnectRequest;
 import com.astroviking.api.services.EmailService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping(ConnectController.BASE_URL)
@@ -22,7 +24,7 @@ public class ConnectController {
 
   @PostMapping
   @ResponseStatus(HttpStatus.ACCEPTED)
-  public void connect(@RequestBody EmailDTO emailDTO) {
-    emailService.sendEmail(emailDTO);
+  public void connect(@RequestBody @Valid ConnectRequest connectRequest) {
+    emailService.sendEmail(connectRequest);
   }
 }

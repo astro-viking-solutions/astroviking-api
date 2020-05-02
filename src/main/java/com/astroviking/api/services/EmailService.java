@@ -2,7 +2,7 @@ package com.astroviking.api.services;
 
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
 import com.amazonaws.services.simpleemail.model.*;
-import com.astroviking.api.dto.EmailDTO;
+import com.astroviking.api.dto.ConnectRequest;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,7 +16,7 @@ public class EmailService {
     this.amazonSimpleEmailService = amazonSimpleEmailService;
   }
 
-  public void sendEmail(EmailDTO emailDTO) {
+  public void sendEmail(ConnectRequest connectRequest) {
 
     Destination destination = new Destination().withToAddresses(EMAIL_ADDRESS);
     Message message =
@@ -27,7 +27,8 @@ public class EmailService {
                     .withData("Astro Viking Solutions - Connect Request"))
             .withBody(
                 new Body()
-                    .withText(new Content().withCharset("UTF-8").withData(buildMessage(emailDTO))));
+                    .withText(
+                        new Content().withCharset("UTF-8").withData(buildMessage(connectRequest))));
 
     SendEmailRequest sendEmailRequest =
         new SendEmailRequest()
@@ -38,18 +39,18 @@ public class EmailService {
     amazonSimpleEmailService.sendEmail(sendEmailRequest);
   }
 
-  private String buildMessage(EmailDTO emailDTO) {
+  private String buildMessage(ConnectRequest connectRequest) {
     return "Name: "
-        + emailDTO.getFirstName()
+        + connectRequest.getFirstName()
         + " "
-        + emailDTO.getLastName()
+        + connectRequest.getLastName()
         + "\nCompany: "
-        + emailDTO.getCompanyName()
+        + connectRequest.getCompanyName()
         + "\nEmail: "
-        + emailDTO.getEmail()
+        + connectRequest.getEmail()
         + "\nPhone: "
-        + emailDTO.getPhoneNumber()
+        + connectRequest.getPhoneNumber()
         + "\nMessage: "
-        + emailDTO.getMessage();
+        + connectRequest.getMessage();
   }
 }
