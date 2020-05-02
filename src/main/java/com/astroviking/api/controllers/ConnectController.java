@@ -1,22 +1,28 @@
 package com.astroviking.api.controllers;
 
-import com.astroviking.api.dto.ConnectDto;
-import com.astroviking.api.services.ConnectService;
+import com.astroviking.api.dto.EmailDTO;
+import com.astroviking.api.services.EmailService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
-@RequestMapping("/connect")
+@RequestMapping(ConnectController.BASE_URL)
 public class ConnectController {
 
-  private final ConnectService connectService;
+  public static final String BASE_URL = "/connect";
+  private final EmailService emailService;
 
-  public ConnectController(ConnectService connectService) {
-    this.connectService = connectService;
+  public ConnectController(EmailService emailService) {
+    this.emailService = emailService;
   }
 
   @PostMapping
-  public void connect(@RequestBody ConnectDto connectDto) {}
+  @ResponseStatus(HttpStatus.ACCEPTED)
+  public void connect(@RequestBody EmailDTO emailDTO) {
+    emailService.sendEmail(emailDTO);
+  }
 }

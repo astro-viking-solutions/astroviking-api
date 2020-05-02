@@ -16,12 +16,19 @@
 
     <properties>
         <java.version>11</java.version>
+        <aws-java-sdk.version>1.11.774</aws-java-sdk.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk</artifactId>
+            <version>${aws-java-sdk.version}</version>
         </dependency>
 
         <dependency>

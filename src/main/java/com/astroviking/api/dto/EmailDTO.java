@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ConnectDto {
+public class EmailDTO {
 
   private String firstName;
   private String lastName;
