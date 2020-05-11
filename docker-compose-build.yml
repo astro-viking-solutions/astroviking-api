@@ -19,7 +19,7 @@ services:
   astroviking-api:
     container_name: astroviking-api
     restart: on-failure
-    image: astrovikingsolutions/api
+    build: ./
     ports:
       - 80:8080
     env_file:
