@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
-@Profile("development")
+@Profile({"dev"})
 @Component
 @Slf4j
 public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> {
