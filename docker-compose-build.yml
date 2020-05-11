@@ -1,0 +1,30 @@
+version: '3'
+services:
+  astroviking-db:
+    restart: always
+    container_name: astroviking-db
+    image: mysql:8.0.20
+    env_file:
+      - astroviking-db.env
+    ports:
+      - 3306:3306
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: "/usr/bin/mysql --user=$$MYSQL_USER --password=$$MYSQL_USER --execute \"SHOW DATABASES;\""
+      interval: 2s
+      timeout: 20s
+      retries: 10
+  astroviking-api:
+    container_name: astroviking-api
+    restart: on-failure
+    build: ./
+    ports:
+      - 80:8080
+    env_file:
+      - astroviking-api.env
+    depends_on:
+      - astroviking-db
+volumes:
+  db_data: {}
